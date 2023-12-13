@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="example.html" />
+    <None Remove="example.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="example.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="example.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PDFsharp-MigraDoc-GDI" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MigraDoc.Extensions.Html\MigraDoc.Extensions.Html.csproj" />
+    <ProjectReference Include="..\MigraDoc.Extensions.Markdown\MigraDoc.Extensions.Markdown.csproj" />
+  </ItemGroup>
+
+</Project>

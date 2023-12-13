@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>PdfSharp-MigraDoc.Extensions-GDI</Title>
+    <Authors>Extragorey, Vertigo Ventures</Authors>
+    <Description>Adds HTML and Markdown support to MigraDoc's document model. A PdfSharp-MigraDoc 6 port of the MigraDoc.Extensions library by Vertigo Ventures.</Description>
+    <PackageProjectUrl>https://github.com/Extragorey/pdfsharp-migradoc-extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Extragorey/pdfsharp-migradoc-extensions</RepositoryUrl>
+    <PackageTags>MigraDoc; MigraDoc.Extensions; PdfSharp; .NET 6; HTML; Markdown</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>1.0.0.1</Version>
+    <PackageId>PdfSharp-MigraDoc.Extensions-GDI</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.33.0" />
+    <PackageReference Include="PDFsharp-MigraDoc-GDI" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MigraDoc.Extensions.Html\MigraDoc.Extensions.Html.csproj" />
+    <ProjectReference Include="..\MigraDoc.Extensions\MigraDoc.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
