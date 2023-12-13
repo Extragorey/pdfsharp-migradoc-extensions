@@ -2,6 +2,9 @@
 using MigraDoc.DocumentObjectModel.Tables;
 
 namespace MigraDoc.Extensions.Markdown {
+    /// <summary>
+    /// Defines extension methods for various MigraDoc objects.
+    /// </summary>
     public static class SectionExtensions {
         /// <summary>
         /// Adds the given <paramref name="markdown"/> formatted text to the section.

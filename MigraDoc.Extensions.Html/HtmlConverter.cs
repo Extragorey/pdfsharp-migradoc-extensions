@@ -7,35 +7,74 @@ using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 
 namespace MigraDoc.Extensions.Html {
+    /// <summary>
+    /// Handles the conversion from HTML markup to MigraDoc objects.
+    /// </summary>
     public class HtmlConverter : IConverter {
         private readonly bool _isPdf;
 
+        /// <summary>
+        /// Initialises a new HtmlConverter with default node handlers.
+        /// </summary>
+        /// <param name="isPdf">If false, images from &lt;img&gt; elements are first written
+        /// to a temporary location before being added to the MigraDoc document model.</param>
         public HtmlConverter(bool isPdf = false) {
             _isPdf = isPdf;
             AddDefaultNodeHandlers();
         }
 
+        /// <summary>
+        /// A dictionary of handlers for all supported HTML nodes.
+        /// To support additional node types, add an entry to this dictionary
+        /// that returns a suitable MigraDoc object.
+        /// See <see href="https://github.com/Extragorey/pdfsharp-migradoc-extensions#extending-the-html-converter">Extending the HTML converter</see>
+        /// for more information.
+        /// </summary>
         public IDictionary<string, Func<HtmlNode, DocumentObject, DocumentObject?>> NodeHandlers { get; }
             = new Dictionary<string, Func<HtmlNode, DocumentObject, DocumentObject?>>();
 
+        /// <summary>
+        /// Returns the action for converting the HTML
+        /// <paramref name="contents"/> string into a MigraDoc Section.
+        /// </summary>
+        /// <param name="contents">The HTML-formatted string to convert.</param>
+        /// <returns>The action for converting the HTML into a MigraDoc Section.</returns>
         public Action<Section> Convert(string contents) {
             TryDeleteAllTemporaryFiles();
 
             return section => ConvertHtml(contents, section);
         }
 
+        /// <summary>
+        /// Returns the action for converting the HTML
+        /// <paramref name="contents"/> string into a MigraDoc HeaderFooter.
+        /// </summary>
+        /// <param name="contents">The HTML-formatted string to convert.</param>
+        /// <returns>The action for converting the HTML into a MigraDoc HeaderFooter.</returns>
         public Action<HeaderFooter> ConvertHeaderFooter(string contents) {
             TryDeleteAllTemporaryFiles();
 
             return headerFooter => ConvertHtml(contents, headerFooter);
         }
 
+        /// <summary>
+        /// Returns the action for converting the HTML
+        /// <paramref name="contents"/> string into a MigraDoc Cell.
+        /// </summary>
+        /// <param name="contents">The HTML-formatted string to convert.</param>
+        /// <returns>The action for converting the HTML into a MigraDoc Cell.</returns>
         public Action<Cell> ConvertCell(string contents) {
             TryDeleteAllTemporaryFiles();
 
             return cell => ConvertHtml(contents, cell);
         }
 
+        /// <summary>
+        /// Returns the action for converting the HTML
+        /// <paramref name="contents"/> string into a MigraDoc Paragraph.
+        /// </summary>
+        /// <param name="contents">The HTML-formatted string to convert.</param>
+        /// <returns>The action for converting the HTML into a MigraDoc Paragraph.</returns>
         public Action<Paragraph> ConvertParagraph(string contents) {
             TryDeleteAllTemporaryFiles();
 
@@ -646,6 +685,12 @@ namespace MigraDoc.Extensions.Html {
                 ((FormattedText)parent).AddFormattedText(innerText, font);
         }
 
+
+        /// <summary>
+        /// Gets or adds the last paragraph in the given table cell.
+        /// </summary>
+        /// <param name="source">The table cell.</param>
+        /// <returns>A Paragraph object in the given cell.</returns>
         private static Paragraph GetCellParagraph(Cell source) {
             for (var i = source.Elements.Count; i > 0; i--) {
                 if (source.Elements[i - 1] is Paragraph paragraph) {
@@ -660,17 +705,10 @@ namespace MigraDoc.Extensions.Html {
         /// Gets or adds the last paragraph in the given HeaderFooter section.
         /// </summary>
         /// <param name="source">The HeaderFooter section.</param>
-        /// <param name="appendNewline">If true, a double newline (\n\n) is appended
-        /// to the returned paragraph to simulate a new paragraph being added.
-        /// This is to work around the issue in MigraDocCore where new paragraphs
-        /// are written to the same position (and hence overlap) in footer sections.</param>
         /// <returns>A Paragraph object in the given section.</returns>
-        private static Paragraph GetHeaderFooterParagraph(HeaderFooter source, bool appendNewline = false) {
+        private static Paragraph GetHeaderFooterParagraph(HeaderFooter source) {
             for (var i = source.Elements.Count; i > 0; i--) {
                 if (source.Elements[i - 1] is Paragraph paragraph) {
-                    if (appendNewline) {
-                        paragraph.AddText("\n\n");
-                    }
                     return paragraph;
                 }
             }
@@ -678,6 +716,11 @@ namespace MigraDoc.Extensions.Html {
             return source.AddParagraph();
         }
 
+        /// <summary>
+        /// Gets or adds the last paragraph in the given Section.
+        /// </summary>
+        /// <param name="source">The section.</param>
+        /// <returns>A Paragraph object in the given section.</returns>
         private static Paragraph GetSectionParagraph(Section source) {
             for (var i = source.Elements.Count; i > 0; i--) {
                 if (source.Elements[i - 1] is Paragraph paragraph) {

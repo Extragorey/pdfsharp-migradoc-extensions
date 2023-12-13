@@ -2,6 +2,9 @@
 using MigraDoc.DocumentObjectModel.Tables;
 
 namespace MigraDoc.Extensions.Html {
+    /// <summary>
+    /// Defines extension methods for various MigraDoc objects.
+    /// </summary>
     public static class SectionExtensions {
         /// <summary>
         /// Adds the given <paramref name="html"/> formatted text to the section.
