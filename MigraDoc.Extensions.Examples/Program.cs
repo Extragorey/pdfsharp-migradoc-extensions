@@ -19,6 +19,13 @@ namespace MigraDoc.Extensions.Examples {
                 File.Delete(outputName);
             }
 
+            // This is required for the platform-agnostic build of PdfSharp,
+            // otherwise an exception will be thrown when rendering the document,
+            // saying the default font (Arial) cannot be found
+            //// NET6FIX - will be removed
+            //if (PdfSharp.Capabilities.Build.IsCoreBuild)
+            //    GlobalFontSettings.FontResolver = new FailsafeFontResolver();
+
             var doc = new Document();
             StyleDocument(doc);
             var section = doc.AddSection();
