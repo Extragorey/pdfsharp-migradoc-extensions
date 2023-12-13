@@ -2,7 +2,7 @@
 
 Extensions for [MigraDoc/PDFSharp 6.0](https://github.com/empira/PDFsharp). This project was ported from the [hivvetech/migradoc-extensions](https://github.com/hivvetech/migradoc-extensions) project. It also adds support for HTML and Markdown in header or footer sections.
 
-If you're using (MigraDocCore/PdfSharpCore](https://github.com/ststeiger/PdfSharpCore) instead of the main PDFsharp 6.0 library, there's an [extensions package](https://github.com/Extragorey/migradoccore-extensions) for that too.
+If you're using [MigraDocCore/PdfSharpCore](https://github.com/ststeiger/PdfSharpCore) instead of the main PDFsharp 6.0 library, there's an [extensions package](https://github.com/Extragorey/migradoccore-extensions) for that too.
 
 Finally, this library targets the GDI build of MigraDoc/PdfSharp, but can easily be changed to target the platform-agnostic build by replacing the package references. Nuget packages exist for both versions of this extensions library.
 
@@ -13,7 +13,7 @@ The biggest feature provided by this library is the ability to convert from HTML
 
 MigraDoc.Extensions makes use of [Markdig](https://github.com/xoofx/markdig) (replacing MarkdownSharp in the original library) to convert from Markdown to HTML and the [Html Agility Pack](https://html-agility-pack.net/) to convert from HTML to PDF.
 
-Since the MigraDoc DOM is pretty basic, much of the conversion involves setting the `Style` of generated MigraDoc `Paragraph` instances. You can then configure these styles however you like. See the [example project](https://github.com/Extragorey/pdfsharp-migradoc-extensions/blob/master/MigraDoc.Extensions.Examples/Program.cs#L83) for more details.
+Since the MigraDoc DOM is pretty basic, much of the conversion involves setting the `Style` of generated MigraDoc `Paragraph` instances. You can then configure these styles however you like. See the [example project](https://github.com/Extragorey/pdfsharp-migradoc-extensions/blob/master/MigraDoc.Extensions.Examples/Program.cs#L86) for more details.
 
 #### Converting from Markdown to PDF
 
