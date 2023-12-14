@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -15,9 +15,10 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageId>PdfSharp-MigraDoc.Extensions-GDI</PackageId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,8 +38,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MigraDoc.Extensions.Html\MigraDoc.Extensions.Html.csproj" />
-    <ProjectReference Include="..\MigraDoc.Extensions\MigraDoc.Extensions.csproj" />
+    <ProjectReference Include="..\MigraDoc.Extensions.Html\MigraDoc.Extensions.Html.csproj">
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>MigraDoc.Extensions.Html.dll</IncludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\MigraDoc.Extensions\MigraDoc.Extensions.csproj">
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>MigraDoc.Extensions.dll</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
 
+  <Target DependsOnTargets="BuildOnlySettings;ResolveReferences" Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+    </ItemGroup>
+  </Target>
 </Project>
