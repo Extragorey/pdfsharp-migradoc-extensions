@@ -1,5 +1,8 @@
 # MigraDocCore.Extensions Changelog
 
+## 1.0.3 (2023-12-14)
+- Fixed *Nuget* dependencies from dependent projects not being included in Nuget package (this process really needs to be better documented...)
+
 ## 1.0.2 (2023-12-14)
 - Fixed project dependency DLLs not being included in Nuget package
 
